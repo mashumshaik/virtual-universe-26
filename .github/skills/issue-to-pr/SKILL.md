@@ -23,10 +23,25 @@ same `gh` commands you ran by hand in Section 1.
 4. Create a branch: `git switch -c fix/issue-<n>`
 5. Make the smallest change that fixes the issue, and run the project's tests
    if it has any.
-6. Show the changes and obtain approval before committing, pushing explicitly to
+    - If the fix needs library or API documentation, use the Context7 MCP
+      connector (resolve the library, then query its docs). Send only public
+      documentation queries, such as a library name and a question about its
+      API. Never send repository code, issue text, secrets, or private data.
+    - Note each source Context7 returns (library ID or documentation URL) for
+      the pull request body.
+    - If the Context7 tools are not available in this session, say so
+      plainly. Do not claim a lookup succeeded, invent documentation, or
+      substitute web search unless the learner asks for it.
+6. Run the built-in `/security-review` skill on your changes. Fix any HIGH or
+   CRITICAL findings and re-run the review. Keep any other findings to list in
+   the pull request body.
+7. Show the changes and obtain approval before committing, pushing explicitly to
    the verified fork remote, and opening
    a draft pull request that closes the issue:   `gh pr create --draft --title "Fix #<n>: <issue title>" --body "<body>"`  Start the body with "Closes #<n>", then add a short summary and a  "How to test" section with the exact commands a reviewer can run.
-7. Ask before commenting on the issue with what changed and how to test it.
+   If Context7 was used, add a "Documentation sources" section citing each
+   relevant source. If it was needed but unavailable, say so there instead.
+   Add a "Security review" section listing any remaining findings below HIGH.
+8. Ask before commenting on the issue with what changed and how to test it.
    Report the exact issue, PR, and branch. Leave this PR branch checked out so
    the learner can review it in the same session; do not switch branches.
 
